@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block body %}
+<br>
+<br>
+<div class="container">
+
+  <h3 class= " font-weight-bold  text-center ">Listado Tiendas y Bodegas</h3>
+    <div class="row">
+        <div class="col-4">
+            <form  action="/create_ubicacion" method="POST">
+                
+                <input type="text" class="form-control" name="CODIGO_SAP" placeholder="CODIGO SAP">
+                <input type="number" class="form-control" name="COD_NCR" placeholder="COD NCR O ID BODEGA">
+                <input type="number" class="form-control" name="Nombre_ubicacion" placeholder="NOMBRE DE LA UBICACION">
+                <input type="text" class="form-control" name="COD_REGIONAL" placeholder="COD Regional">
+                <select name="Regional"class="form-control" >
+                  <option value="1">Windows Vista</option> 
+                </select>
+                <button class="btn btn-primary btn-block"  type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save2-fill" viewBox="0 0 16 16">
+                    <path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v6h-2a.5.5 0 0 0-.354.854l2.5 2.5a.5.5 0 0 0 .708 0l2.5-2.5A.5.5 0 0 0 10.5 7.5h-2v-6z"/>
+                  </svg>Guardar</button>
+
+
+            </form>
+          </div>
+          <div class="col-8">
+            <table class ="table table-sm table-striped  ">
+              <thead class ="thead-dark">
+                
+                <tr class="font-weight-bold text-center ">
+                  
+                  <td>CODIGO SAP</td>
+                  <td>ID BODEGA</td>
+                  <TD>nombre ubicacion</TD>
+                  <td>ID REGIONAL</td>
+                  
+                    
+                  
+                  
+                  </tr>
+              </thead>
+              <tbody>
+                {% for ubicacion in ubicaciones %}
+                      <tr class="text-center">
+                        <td>{{ubicaciones.0}}</td>
+                        <td>{{ubicaciones.1}}</td>
+                        <td>{{ubicaciones.2}}</td>
+                        <td>{{ubicaciones.3}}</td>
+
+                       </tr>
+                {% endfor %}
+            
+            
+              </tbody>
+            
+              </table>
+              <br>
+          </div>
+          <br>
+
+    </div>
+    <br>
+</div>
+<br>
+
+
+
+
+
+{% endblock %}
