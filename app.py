@@ -23,7 +23,7 @@ def index():
 #CARGUE DE LA PAGINA REGIONAL 
 @app.route('/Regional')
 def Regional():
-    data=listar_regional()
+    data=Regional.Listar_Regional()
     return render_template('Regional.html', regionales = data)
 
 #Crear Regional
@@ -33,23 +33,13 @@ def create_regional():
         Id_Regional = request.form['Id_Regional']
         CODIGO_SAP = request.form['CODIGO_SAP']
         Nombre_Regional = request.form['Nombre_Regional']
-        cur = mysql.connection.cursor()
-        #INSERT INTO `INVENTARIO_BOGOTA`.`Regional` (`idRegional`, `Codigo_sap_Regional`, `Codigo_sap_Regional`) VALUES ('2', '2', '2');
-        cur.execute('INSERT INTO INVENTARIO_BOGOTA.Regional (idRegional, Codigo_sap_Regional, Nombre_Regional) VALUES(%s, %s, %s ); ',
-                    (Id_Regional, CODIGO_SAP,  Nombre_Regional))
-        mysql.connection.commit()
+        Regional.create_regional (Id_Regional, CODIGO_SAP,  Nombre_Regional)
         menssanges = 'Store Added Satisfactorily'
         flash(menssanges)
     return Regional()
 
 
-def listar_regional():
-    cur = mysql.connection.cursor()
-    sentens = ('SELECT * FROM INVENTARIO_BOGOTA.Regional;')
-    cur.execute(sentens)
-    data = cur.fetchall()
-    print(data) 
-    return data
+
 
 
 #ruta ubucacion
