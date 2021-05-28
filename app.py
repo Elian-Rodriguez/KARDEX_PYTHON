@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
-import  Regional
+import  Regionald
 #from werkzeug.contrib.sessions import FilesystemSessionStore
 
 app = Flask(__name__)
@@ -24,7 +24,7 @@ def index():
 #CARGUE DE LA PAGINA REGIONAL 
 @app.route('/Regional')
 def Regional():
-    data=Regional.Listar_Regional()
+    data=Regionald.Listar_Regional()
     return render_template('Regional.html', regionales = data)
 
 #Crear Regional
