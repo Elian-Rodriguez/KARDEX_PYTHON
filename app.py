@@ -1,13 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
-import  Regionald
+
 #from werkzeug.contrib.sessions import FilesystemSessionStore
 
 app = Flask(__name__)
 
 
 #Conexion Mysql
-app.config['MYSQL_HOST'] = '10.29.1.97'
+app.config['MYSQL_HOST'] = '10.26.1.161'
 app.config['MYSQL_USER'] = 'lisa'
 app.config['MYSQL_PASSWORD'] = 'Linux-1234'
 app.config['MYSQL_DB'] = 'Kardex_monitor'
@@ -62,6 +62,6 @@ def Ubicacion():
 
 
 if __name__ == '__main__':
-    app.run(port=3000, host="0.0.0.0", debug=True)
+    app.run(port=3000,  debug=True)
     #app.run(port=3030, host="0.0.0.0", debug=True)
 #,host="0.0.0.0"

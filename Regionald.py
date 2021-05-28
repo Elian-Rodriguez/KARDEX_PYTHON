@@ -1,4 +1,6 @@
-import app as app,mysql
+from app import app,mysql
+
+
 def Crear_regional(IdRegional, CODIGOSAP,  NombreRegional):
         cur = mysql.connection.cursor()
         #INSERT INTO `INVENTARIO_BOGOTA`.`Regional` (`idRegional`, `Codigo_sap_Regional`, `Codigo_sap_Regional`) VALUES ('2', '2', '2');
@@ -9,8 +11,12 @@ def Crear_regional(IdRegional, CODIGOSAP,  NombreRegional):
 def Listar_Regional():
     cur = mysql.connection.cursor()
     print("cursor ejecutado")
-    sentens = ('SELECT * FROM Kardex_monitor.Regional;')
+    sentens = ('SELECT * FROM Regional;')
     print("consulta realizada")
     cur.execute(sentens)
     datas = cur.fetchall()
     return datas
+
+
+dat= Listar_Regional()
+print(dat)
