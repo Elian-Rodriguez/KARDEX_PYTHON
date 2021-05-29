@@ -75,26 +75,12 @@ def listar_actas_recibido():
     return datas   
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#RUTA PRINCIPAL, INDEX O PAGINA DE INICIO
+#Refinicion de rutas y configuracion
 @app.route('/')
 def index():
     return render_template('index.html')
 
-#CARGUE DE LA PAGINA DE LOGIN DE ADMINISTRACION 
+
 @app.route('/Regional')
 def Regional():
     data = listar_regionales()
@@ -120,7 +106,6 @@ def create_regional():
 def Ubicacion():
     data=listar_comarcas()
     data2= listar_regionales()
-    
     return render_template('Ubicacion.html',ubicaciones=data ,comarcas=data2)
 
 
@@ -142,16 +127,15 @@ def create_ubicacion():
                         (CODNCR, Nombreubicacion, CODIGOSAP,IPSERVER,IPPC,CAMARA,ABIERT,ESTAD,IdRegional))
         mysql.connection.commit()
         flash('COMARCA INGRESADA CORRECTAMENTE')
-        return Regional()
-    #INSERT INTO `Kardex_monitor`.`Tiendas` (`Cod_Ncr`, `Nombre_Tienda`, `Codigo_sap`, `Ip_Server`, `Ip_Pc`, `Ip_Camaras`, `Abierta`, `Estado`, `Regional_Cod_Regional`) VALUES ('2', 'LABORATORIO', '6A06', '10.26.1.161', '10.26.1.161', '10.26.1.161', '1', 'OFFLINE', '6030');
-
+        return Ubicacion()
     return Ubicacion()
-#VISTA RETORNANDO BUSQUEDA
 
 
-app.route("/Marca")
+
+@app.route("/Marca")
 def Marca():
-    return render_template('Marca.html')
+    data= listar_marca()
+    return render_template('Marca.html',marcas=data)
     
 
 
