@@ -28,9 +28,11 @@ CREATE TABLE IF NOT EXISTS `Kardex_monitor`.`Regional` (
   `Codigo_Sap` VARCHAR(45) NULL,
   `Nombre_Regional` VARCHAR(45) NULL,
   PRIMARY KEY (`Cod_Regional`),
-  UNIQUE INDEX `idRegional_UNIQUE` (`Cod_Regional` ASC) VISIBLE)
+  UNIQUE INDEX `idRegional_UNIQUE` (`Cod_Regional` ASC) )
 ENGINE = InnoDB;
 
+--Executing:
+--INSERT INTO `Kardex_monitor`.`ACT_Ingreso` (`id_ACt_ingreso`, `fecha_ingreso`, `proveedor`) VALUES ('1', '2020-11-15', 'a');
 
 -- -----------------------------------------------------
 -- Table `Kardex_monitor`.`Tiendas`
@@ -44,12 +46,12 @@ CREATE TABLE IF NOT EXISTS `Kardex_monitor`.`Tiendas` (
   `Ip_Server` VARCHAR(20) NOT NULL,
   `Ip_Pc` VARCHAR(20) NOT NULL,
   `Ip_Camaras` VARCHAR(45) NOT NULL,
-  `Abierta` TINYBLOB NOT NULL,
+  `Abierta` TINYINT NOT NULL,
   `Estado` VARCHAR(10) NOT NULL,
   `Regional_Cod_Regional` INT NOT NULL,
   PRIMARY KEY (`Cod_Ncr`),
-  UNIQUE INDEX `Cod_Ncr_UNIQUE` (`Cod_Ncr` ASC) VISIBLE,
-  INDEX `fk_Tiendas_Regional_idx` (`Regional_Cod_Regional` ASC) VISIBLE,
+  UNIQUE INDEX `Cod_Ncr_UNIQUE` (`Cod_Ncr` ASC) ,
+  INDEX `fk_Tiendas_Regional_idx` (`Regional_Cod_Regional` ASC) ,
   CONSTRAINT `fk_Tiendas_Regional`
     FOREIGN KEY (`Regional_Cod_Regional`)
     REFERENCES `Kardex_monitor`.`Regional` (`Cod_Regional`)
@@ -69,8 +71,8 @@ CREATE TABLE IF NOT EXISTS `Kardex_monitor`.`Historial_Linia` (
   `Estado` VARCHAR(45) NULL,
   `Tiendas_Cod_Ncr` INT NOT NULL,
   PRIMARY KEY (`idHistorial_Linia`),
-  UNIQUE INDEX `idHistorial_Linia_UNIQUE` (`idHistorial_Linia` ASC) VISIBLE,
-  INDEX `fk_Historial_Linia_Tiendas1_idx` (`Tiendas_Cod_Ncr` ASC) VISIBLE,
+  UNIQUE INDEX `idHistorial_Linia_UNIQUE` (`idHistorial_Linia` ASC) ,
+  INDEX `fk_Historial_Linia_Tiendas1_idx` (`Tiendas_Cod_Ncr` ASC) ,
   CONSTRAINT `fk_Historial_Linia_Tiendas1`
     FOREIGN KEY (`Tiendas_Cod_Ncr`)
     REFERENCES `Kardex_monitor`.`Tiendas` (`Cod_Ncr`)
@@ -93,8 +95,8 @@ CREATE TABLE IF NOT EXISTS `Kardex_monitor`.`Servidor` (
   `ArsPluMnt` VARCHAR(45) NOT NULL DEFAULT 'NO ACTICO',
   `Tiendas_Cod_Ncr` INT NOT NULL,
   PRIMARY KEY (`idServicios`),
-  UNIQUE INDEX `idServicios_UNIQUE` (`idServicios` ASC) VISIBLE,
-  INDEX `fk_Servidor_Tiendas1_idx` (`Tiendas_Cod_Ncr` ASC) VISIBLE,
+  UNIQUE INDEX `idServicios_UNIQUE` (`idServicios` ASC) ,
+  INDEX `fk_Servidor_Tiendas1_idx` (`Tiendas_Cod_Ncr` ASC) ,
   CONSTRAINT `fk_Servidor_Tiendas1`
     FOREIGN KEY (`Tiendas_Cod_Ncr`)
     REFERENCES `Kardex_monitor`.`Tiendas` (`Cod_Ncr`)
@@ -114,9 +116,9 @@ CREATE TABLE IF NOT EXISTS `Kardex_monitor`.`Conf_pos` (
   `Serial_Cpu` VARCHAR(45) NULL,
   `Teclado` VARCHAR(45) NULL,
   `Tiendas_Cod_Ncr` INT NOT NULL,
-  UNIQUE INDEX `idConf_pos_UNIQUE` (`idConf_pos` ASC) VISIBLE,
+  UNIQUE INDEX `idConf_pos_UNIQUE` (`idConf_pos` ASC) ,
   PRIMARY KEY (`idConf_pos`),
-  INDEX `fk_Conf_pos_Tiendas1_idx` (`Tiendas_Cod_Ncr` ASC) VISIBLE,
+  INDEX `fk_Conf_pos_Tiendas1_idx` (`Tiendas_Cod_Ncr` ASC) ,
   CONSTRAINT `fk_Conf_pos_Tiendas1`
     FOREIGN KEY (`Tiendas_Cod_Ncr`)
     REFERENCES `Kardex_monitor`.`Tiendas` (`Cod_Ncr`)
@@ -134,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `Kardex_monitor`.`Marca` (
   `idMarca` INT NOT NULL,
   `Nombre_Marca` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idMarca`),
-  UNIQUE INDEX `idMarca_UNIQUE` (`idMarca` ASC) VISIBLE)
+  UNIQUE INDEX `idMarca_UNIQUE` (`idMarca` ASC) )
 ENGINE = InnoDB;
 
 
@@ -147,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `Kardex_monitor`.`Tipo_dispositivo` (
   `idTipo_dispositivo` INT NOT NULL,
   `Nombre_tip_dispo` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idTipo_dispositivo`),
-  UNIQUE INDEX `idTipo_dispositivo_UNIQUE` (`idTipo_dispositivo` ASC) VISIBLE)
+  UNIQUE INDEX `idTipo_dispositivo_UNIQUE` (`idTipo_dispositivo` ASC) )
 ENGINE = InnoDB;
 
 
@@ -161,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `Kardex_monitor`.`Estado` (
   `Nombre_estado` VARCHAR(45) NOT NULL,
   `Descripcion_estado` VARCHAR(224) NOT NULL,
   PRIMARY KEY (`idEstado`),
-  UNIQUE INDEX `idEstado_UNIQUE` (`idEstado` ASC) VISIBLE)
+  UNIQUE INDEX `idEstado_UNIQUE` (`idEstado` ASC) )
 ENGINE = InnoDB;
 
 
@@ -176,9 +178,9 @@ CREATE TABLE IF NOT EXISTS `Kardex_monitor`.`Modelo` (
   `Marca_idMarca` INT NOT NULL,
   `Tipo_dispositivo_idTipo_dispositivo` INT NOT NULL,
   PRIMARY KEY (`idModelo`),
-  UNIQUE INDEX `idModelo_UNIQUE` (`idModelo` ASC) VISIBLE,
-  INDEX `fk_Modelo_Marca1_idx` (`Marca_idMarca` ASC) VISIBLE,
-  INDEX `fk_Modelo_Tipo_dispositivo1_idx` (`Tipo_dispositivo_idTipo_dispositivo` ASC) VISIBLE,
+  UNIQUE INDEX `idModelo_UNIQUE` (`idModelo` ASC) ,
+  INDEX `fk_Modelo_Marca1_idx` (`Marca_idMarca` ASC) ,
+  INDEX `fk_Modelo_Tipo_dispositivo1_idx` (`Tipo_dispositivo_idTipo_dispositivo` ASC) ,
   CONSTRAINT `fk_Modelo_Marca1`
     FOREIGN KEY (`Marca_idMarca`)
     REFERENCES `Kardex_monitor`.`Marca` (`idMarca`)
@@ -203,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `Kardex_monitor`.`ACT_Ingreso` (
   `proveedor` VARCHAR(45) NOT NULL,
   `Documentos` BLOB NULL,
   PRIMARY KEY (`id_ACt_ingreso`),
-  UNIQUE INDEX `idtable1_UNIQUE` (`id_ACt_ingreso` ASC) VISIBLE)
+  UNIQUE INDEX `idtable1_UNIQUE` (`id_ACt_ingreso` ASC) )
 ENGINE = InnoDB;
 
 
@@ -222,11 +224,11 @@ CREATE TABLE IF NOT EXISTS `Kardex_monitor`.`Activo` (
   `Modelo_idModelo` INT NOT NULL,
   `Ubicacionact_Cod_Ncr` INT NOT NULL,
   PRIMARY KEY (`idActivo`),
-  UNIQUE INDEX `idActivo_UNIQUE` (`idActivo` ASC) VISIBLE,
-  INDEX `fk_Activo_Estado1_idx` (`Estado_idEstado` ASC) VISIBLE,
-  INDEX `fk_Activo_ACT_Ingreso1_idx` (`ACT_Ingreso_id_ACt_ingreso` ASC) VISIBLE,
-  INDEX `fk_Activo_Modelo1_idx` (`Modelo_idModelo` ASC) VISIBLE,
-  INDEX `fk_Activo_Tiendas1_idx` (`Ubicacionact_Cod_Ncr` ASC) VISIBLE,
+  UNIQUE INDEX `idActivo_UNIQUE` (`idActivo` ASC) ,
+  INDEX `fk_Activo_Estado1_idx` (`Estado_idEstado` ASC) ,
+  INDEX `fk_Activo_ACT_Ingreso1_idx` (`ACT_Ingreso_id_ACt_ingreso` ASC) ,
+  INDEX `fk_Activo_Modelo1_idx` (`Modelo_idModelo` ASC) ,
+  INDEX `fk_Activo_Tiendas1_idx` (`Ubicacionact_Cod_Ncr` ASC) ,
   CONSTRAINT `fk_Activo_Estado1`
     FOREIGN KEY (`Estado_idEstado`)
     REFERENCES `Kardex_monitor`.`Estado` (`idEstado`)
@@ -260,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `Kardex_monitor`.`Usuario` (
   `nombre_ingreso` VARCHAR(45) NOT NULL,
   `pass` VARCHAR(255) NULL,
   PRIMARY KEY (`idUsuario`),
-  UNIQUE INDEX `idUsuario_UNIQUE` (`idUsuario` ASC) VISIBLE)
+  UNIQUE INDEX `idUsuario_UNIQUE` (`idUsuario` ASC) )
 ENGINE = InnoDB;
 
 
@@ -277,9 +279,9 @@ CREATE TABLE IF NOT EXISTS `Kardex_monitor`.`Historial_act` (
   `Activo_idActivo` INT NOT NULL,
   `Usuario_idUsuario` INT NOT NULL,
   PRIMARY KEY (`idHistorial_act`),
-  UNIQUE INDEX `idHistorial_act_UNIQUE` (`idHistorial_act` ASC) VISIBLE,
-  INDEX `fk_Historial_act_Activo1_idx` (`Activo_idActivo` ASC) VISIBLE,
-  INDEX `fk_Historial_act_Usuario1_idx` (`Usuario_idUsuario` ASC) VISIBLE,
+  UNIQUE INDEX `idHistorial_act_UNIQUE` (`idHistorial_act` ASC) ,
+  INDEX `fk_Historial_act_Activo1_idx` (`Activo_idActivo` ASC) ,
+  INDEX `fk_Historial_act_Usuario1_idx` (`Usuario_idUsuario` ASC) ,
   CONSTRAINT `fk_Historial_act_Activo1`
     FOREIGN KEY (`Activo_idActivo`)
     REFERENCES `Kardex_monitor`.`Activo` (`idActivo`)
