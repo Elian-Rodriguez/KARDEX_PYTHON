@@ -31,8 +31,8 @@ CREATE TABLE IF NOT EXISTS `Kardex_monitor`.`Regional` (
   UNIQUE INDEX `idRegional_UNIQUE` (`Cod_Regional` ASC) )
 ENGINE = InnoDB;
 
---Executing:
---INSERT INTO `Kardex_monitor`.`ACT_Ingreso` (`id_ACt_ingreso`, `fecha_ingreso`, `proveedor`) VALUES ('1', '2020-11-15', 'a');
+
+-- INSERT INTO `Kardex_monitor`.`ACT_Ingreso` (`id_ACt_ingreso`, `fecha_ingreso`, `proveedor`) VALUES ('1', '2020-11-15', 'a');
 
 -- -----------------------------------------------------
 -- Table `Kardex_monitor`.`Tiendas`

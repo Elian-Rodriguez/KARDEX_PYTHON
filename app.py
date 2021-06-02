@@ -1,13 +1,14 @@
 #ESTE ES EL CONTROLADOR
 from re import A
 import re
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash,
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 #CREATE USER 'bart'@'%' IDENTIFIED BY 'Linux-1234';
 
 #Conexion Mysql
+#app.config['MYSQL_HOST'] = '10.29.1.97'
 app.config['MYSQL_HOST'] = '10.26.1.161'
 app.config['MYSQL_USER'] = 'bart'
 app.config['MYSQL_PASSWORD'] = 'Linux-1234'
@@ -138,7 +139,9 @@ def Marca():
     return render_template('Marca.html',marcas=data)
     
 
-
+@app.route("/POS_TIENDA")
+def POS_TIENDA():
+    return render_template('POS_TIENDA.htm')
 
 if __name__ == '__main__':
     app.run(port=3200, host="0.0.0.0", debug=True)
