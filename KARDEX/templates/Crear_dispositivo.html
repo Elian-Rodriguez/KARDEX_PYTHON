@@ -1,0 +1,162 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<br>
+<br>
+<div class="container">
+
+  <h3 class= " font-weight-bold  text-center ">DISPOSITIVOS</h3>
+    <div class="row">
+       <div class="col-6 border border-primary">
+        <br>
+        <div class="">
+          <br>
+          <a href="/Export_inventario" class="btn btn-success btn-block">
+              Exportar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+        </svg>
+          </a>
+      </div>
+
+            <form  action="/create_activo" method="POST">
+                <label for="ubicacion" class="form-label">Serial</label>
+                <input type="text" class="form-control" name="Serial" placeholder="Serial">
+                <label for="Marca" class="form-label">Modelo</label>
+                <select name="Modelo"class="form-control" >
+                      {% for modelo in modelos %}  
+                        <option value="{{modelo.0}}"> {{modelo.1}}</option>            
+                      {% endfor %}
+                    </select>
+                    <label for="estado" class="form-label">Estado</label>
+                <select name="estado"class="form-control" >
+                    {% for estado in estados %}  
+                        <option value="{{estado.0}}"> {{estado.1}}</option>            
+                      {% endfor %}
+                    </select>
+                    <label for="act_ingreso" class="form-label">Acta de Ingreso</label>
+                    <select name="act_ingreso"class="form-control" >
+                      {% for actingreso in actingresos %}  
+                          <option value="{{actingreso.0}}"> {{actingreso.1}}</option>            
+                        {% endfor %}
+                      </select>
+                      <label for="ubicacion" class="form-label">Ubicacion</label>
+                      <select name="ubicacion"class="form-control" >
+                        {% for ubicacion in ubicaciones %}  
+                            <option value="{{ubicacion.0}}">{{ubicacion.2}} - {{ubicacion.1}}</option>            
+                          {% endfor %}
+                        </select>
+
+                        <br>
+
+                <button class="btn btn-primary btn-block"  type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save2-fill" viewBox="0 0 16 16">
+                    <path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v6h-2a.5.5 0 0 0-.354.854l2.5 2.5a.5.5 0 0 0 .708 0l2.5-2.5A.5.5 0 0 0 10.5 7.5h-2v-6z"/>
+                  </svg> - Guardar</button>
+                  <br> <br>
+                  
+            </form>
+         
+          </div>
+          <div class="col-6 border border-dark">
+            <div>
+            <br>
+            <h4> BUSCAR POR SERIAL </h4>
+            <form  action="/buscar_act" method="POST"> 
+              <label for="Serial_buscar" class="form-label">Serial a Buscar</label>        
+              <input type="text" class="form-control" name="Serial_buscar" placeholder="SERIAL A BUSCAR ">
+              <button class="btn btn-secondary btn-block"  type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+              </svg></button>
+
+            </form>
+            <br>
+          </div>
+          <div>
+            <br>
+            <H4>BUSCAR POR UBICACION</H4>
+            <form  action="/buscar_act_ubicacion" method="POST"> 
+              <label for="ubicacion" class="form-label">CODIGO SAP DE LA UBICACION</label>        
+              <input type="text" class="form-control" name="SAP" placeholder="CODIGO SAP DE LA UBICACION">
+              <button class="btn btn-secondary btn-block"  type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+              </svg></button>
+
+            </form>
+            <br>
+
+            <H4>GENERAR INVENTARIO POR TIENDA</H4>
+            <form  action="/Exportar_inventario_tienda" method="POST"> 
+              <label for="ubicacion_excel" class="form-label">CODIGO SAP DE LA UBICACION</label>        
+              <select name="ubicacion_excel"class="form-control" >
+                {% for ubicacion in ubicaciones %}  
+                    <option value="{{ubicacion.2}}">{{ubicacion.2}} - {{ubicacion.1}}</option>            
+                  {% endfor %}
+                </select>
+              <button class="btn btn-secondary btn-block"  type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel-fill" viewBox="0 0 16 16">
+                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM5.884 6.68 8 9.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 10l2.233 2.68a.5.5 0 0 1-.768.64L8 10.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 10 5.116 7.32a.5.5 0 1 1 .768-.64z"/>
+              </svg></button>
+
+            </form>
+            <br>
+
+
+          </div>
+          </div>
+        </div>
+
+        <br> <br>
+          <div class="row">
+          <div class="col-12">
+            <h4 class= " font-weight-bold  text-center ">LISTADO DISPOSITIVOS CREADOS</h4>
+            <table class ="table table-sm table-striped  ">
+              <thead class ="thead-dark">
+                
+                <tr class="font-weight-bold text-center ">
+                  <TD>SERIAL</TD>
+                  <TD>ULTIMA MODIFICACION</TD>
+                  <TD>FECHA INGRESO</TD>
+                  <TD>OBSERVACION</TD>
+                  <TD>ESTADO</TD>
+                  <TD>MODELO</TD>
+                  <TD>MARCA</TD>
+                  <TD>TIPO DE DISPOSITIVO</TD>
+                  <TD>NOMBRE TIENDA</TD>
+                  <TD>COD REGIONAL</TD>
+
+                  
+                  
+                  </tr>
+              </thead>
+              <tbody>
+                {% for dispositivo in dispositivos %}
+                      <tr class="text-center">
+                        <td>{{dispositivo.0}}</td>
+                        <td>{{dispositivo.1}}</td>
+                        <td>{{dispositivo.2}}</td>
+                        <td>{{dispositivo.3}}</td>
+                        <td>{{dispositivo.4}}</td>
+                        <td>{{dispositivo.5}}</td>
+                        <td>{{dispositivo.6}}</td>
+                        <td>{{dispositivo.7}}</td>
+                        <td>{{dispositivo.8}}</td>
+                        <td>{{dispositivo.9}}</td>
+
+
+                       </tr>
+                {% endfor %}
+            
+            
+              </tbody>
+            
+              </table>
+              <br>
+          </div>
+          <br>
+
+    </div>
+    <br>
+</div>
+<br>
+
+
+
+{% endblock %}

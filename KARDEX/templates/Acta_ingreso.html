@@ -1,19 +1,25 @@
 {% extends "layout.html" %}
 {% block body %}
+
 <br>
 <br>
 <div class="container">
 
-  <h3 class= " font-weight-bold  text-center ">Listado Regionales</h3>
+  <h3 class= " font-weight-bold  text-center ">Actas de ingreso</h3>
     <div class="row">
         <div class="col-4">
-            <form  action="/create_regional" method="POST">
-                <input type="number" class="form-control" name="Id_Regional" placeholder="COD REGIONAL">
-                <input type="text" class="form-control" name="CODIGO_SAP" placeholder="CODIGO SAP">
-                <input type="text" class="form-control" name="Nombre_Regional" placeholder="Nombre Regional">
+            <form  action="/create_ingreso" method="POST">
+                <input type="number" class="form-control" name="id_act_ingreso" placeholder="ID ACTA DE INGRESO">
+                <input name="fecha_ingreso" type="date" class ="form-control" >
+                <input type="text" class="form-control" name="proveedor" placeholder="PROVEEDOR">
+                <input type="text" class="form-control" name="observacion" placeholder="OBSERVACIONES">
+                <label class="custom-file">
+                    <input type="file" id="file" class="custom-file-input">
+                    <span class="custom-file-control"></span>
+                  </label>
                 <button class="btn btn-primary btn-block"  type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save2-fill" viewBox="0 0 16 16">
                     <path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v6h-2a.5.5 0 0 0-.354.854l2.5 2.5a.5.5 0 0 0 .708 0l2.5-2.5A.5.5 0 0 0 10.5 7.5h-2v-6z"/>
-                  </svg>Guardar</button>
+                  </svg> - Guardar</button>
 
                   
             </form>
@@ -23,20 +29,21 @@
               <thead class ="thead-dark">
                 
                 <tr class="font-weight-bold text-center ">
-                  <td>Id Regional</td>
-                  <td>CODIGO SAP</td>
-                  <td>Nombre Regional</td>
-                    
+                  <td>ID ACTA</td>
+                  <td>FECHA DE INGRESO</td>
+                  <td>PROVEEDOR</td>
+                  <td>OBSERVACIONES</td> 
                   
                   
                   </tr>
               </thead>
               <tbody>
-                {% for regional in regionales %}
+                {% for act in acts %}
                       <tr class="text-center">
-                        <td>{{regional.0}}</td>
-                        <td>{{regional.1}}</td>
-                        <td>{{regional.2}}</td>
+                        <td>{{act.0}}</td>
+                        <td>{{act.1}}</td>
+                        <td>{{act.2}}</td>
+                        <td>{{act.3}}</td>
 
                        </tr>
                 {% endfor %}
@@ -53,8 +60,6 @@
     <br>
 </div>
 <br>
-
-
 
 
 
