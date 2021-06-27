@@ -6,63 +6,63 @@
 
   <h3 class= " font-weight-bold  text-center ">Listado Tiendas y Bodegas</h3>
     <div class="row">
-        <div class="col-4">
-            <form  action="/create_ubicacion" method="POST">
-               <input type="number" class="form-control" name="COD_NCR" placeholder="COD NCR O ID BODEGA">
-              <input type="text" class="form-control" name="Nombre_ubicacion" placeholder="NOMBRE DE LA UBICACION">
-              <input type="text" class="form-control" name="CODIGO_SAP" placeholder="CODIGO SAP">
-              <input type="text" class="form-control" name="IP_SERVER" placeholder="IP_SERVER">
-              <input type="text" class="form-control" name="IP_PC" placeholder="IP_PC">
-              <input type="text" class="form-control" name="IP_ CAMARAS" placeholder="IP_CAMARAS">
-              <select name="ABIERTA"class="form-control" >
-                <option value="0">CERRADA</option><option value="0">ABIERTA</option>  
-              </select>
-              <input type="text" class="form-control" name="ESTADO" placeholder="ESTADO">
-              
-              <select name="Regional"class="form-control" >
-              {% for comarca in comarcas %}  
-                  <option value="{{comarca.0}}"> {{comarca.2}}</option>            
-                {% endfor %}
-              </select>
+<div class="col-4">
+    <form  action="/create_ubicacion" method="POST">
+       <input type="number" class="form-control" name="COD_NCR" placeholder="COD NCR O ID BODEGA">
+      <input type="text" class="form-control" name="Nombre_ubicacion" placeholder="NOMBRE DE LA UBICACION">
+      <input type="text" class="form-control" name="CODIGO_SAP" placeholder="CODIGO SAP">
+      <input type="text" class="form-control" name="IP_SERVER" placeholder="IP_SERVER">
+      <input type="text" class="form-control" name="IP_PC" placeholder="IP_PC">
+      <input type="text" class="form-control" name="IP_ CAMARAS" placeholder="IP_CAMARAS">
+      <select name="ABIERTA"class="form-control" >
+<option value="0">CERRADA</option><option value="1">ABIERTA</option>  
+      </select>
+      <input type="text" class="form-control" name="ESTADO" placeholder="ESTADO">
+      
+      <select name="Regional"class="form-control" >
+      {% for comarca in comarcas %}  
+  <option value="{{comarca.0}}"> {{comarca.2}}</option>    
+{% endfor %}
+      </select>
 
-              <button class="btn btn-primary btn-block"  type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save2-fill" viewBox="0 0 16 16">
-                    <path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v6h-2a.5.5 0 0 0-.354.854l2.5 2.5a.5.5 0 0 0 .708 0l2.5-2.5A.5.5 0 0 0 10.5 7.5h-2v-6z"/>
-                  </svg> - Guardar</button>
+      <button class="btn btn-primary btn-block"  type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save2-fill" viewBox="0 0 16 16">
+    <path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v6h-2a.5.5 0 0 0-.354.854l2.5 2.5a.5.5 0 0 0 .708 0l2.5-2.5A.5.5 0 0 0 10.5 7.5h-2v-6z"/>
+  </svg> - Guardar</button>
 
 
-            </form>
-          </div>
-          <div class="col-8">
-            <DIV class="table-responsive">
-            <table class ="table table-sm table-striped  table-responsive   table-bordered mb-0 ">
-              <thead class ="thead-dark">
-               
-                <tr class="font-weight-bold text-center ">
-                  <td>CODIGO SAP</td>
-                  <td>UBICACION</td>
-                  <td>CODIGO SAP</TD>
-                  <td>CODIGO DE REGIONAL</td>
-                  <td>Estado</td>
-                 </tr>
-              </thead>
-              <tbody>
-                {% for ubicacion in ubicaciones %}
-                      <tr class="text-center">
-                        <td>{{ubicacion.0}}</td>
-                        <td>{{ubicacion.1}}</td>
-                        <td>{{ubicacion.2}}</td>
-                        <td>{{ubicacion.8}}</td>
-                        <td>{{ubicacion.7}}</td>
-                      </tr>
-                {% endfor %}
-              
-            
-              </tbody>
-            
-              </table>
-              <br>
-          </div>
-          <br>
+    </form>
+  </div>
+  <div class="col-8">
+    <DIV class="table-responsive">
+    <table class ="table table-sm table-striped  table-responsive   table-bordered mb-0 ">
+      <thead class ="thead-dark">
+       
+<tr class="font-weight-bold text-center ">
+  <td>CODIGO SAP</td>
+  <td>UBICACION</td>
+  <td>CODIGO SAP</TD>
+  <td>CODIGO DE REGIONAL</td>
+  <td>Estado</td>
+ </tr>
+      </thead>
+      <tbody>
+{% for ubicacion in ubicaciones %}
+      <tr class="text-center">
+<td>{{ubicacion.0}}</td>
+<td>{{ubicacion.1}}</td>
+<td>{{ubicacion.2}}</td>
+<td>{{ubicacion.8}}</td>
+<td>{{ubicacion.7}}</td>
+      </tr>
+{% endfor %}
+      
+    
+      </tbody>
+    
+      </table>
+      <br>
+  </div>
+  <br>
 
     </div>
     <br>

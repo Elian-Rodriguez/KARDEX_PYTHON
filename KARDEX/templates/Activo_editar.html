@@ -4,41 +4,41 @@
 <div class="card card-body">
 <form action="/update_device/{{shop.0}}" method="POST">
     <h4>ACTIVO A EDITAR : {{shop.0}} </h4>
-    <label for="SERIAL" class="form-label">SERIAL</label>        
+    <label for="SERIAL" class="form-label">SERIAL</label>
     <input type="TEXT"  class="form-control" name="SERIAL" placeholder="SERIAL" value ={{shop.0}} readonly=readonly >
 
-    <label for="ULT_MODIFI" class="form-label">ULTIMA MODIFICACION</label>        
+    <label for="ULT_MODIFI" class="form-label">ULTIMA MODIFICACION</label>
     <input type="DATE"  class="form-control" name="ULT_MODIFI" placeholder="ULT_MODIFI" value ={{shop.1}} readonly=readonly >
 
-    <label for="ESTADO_ACTUAL" class="form-label">ESTADO ACTUAL</label>        
+    <label for="ESTADO_ACTUAL" class="form-label">ESTADO ACTUAL</label>
     <input type="TEXT"  class="form-control" name="ESTADO_ACTUAL" placeholder="ESTADO_ACTUAL" value ="{{shop.4}}" readonly=readonly >
 
-    <label for="MODELO" class="form-label">MODELO</label>        
+    <label for="MODELO" class="form-label">MODELO</label>
     <input type="TEXT"  class="form-control" name="MODELO" placeholder="MODELO" value ={{shop.6}} readonly=readonly >
    
-    <label for="MARCA" class="form-label">MARCA</label>        
+    <label for="MARCA" class="form-label">MARCA</label>
     <input type="TEXT"  class="form-control" name="MARCA" placeholder="MARCA" value ={{shop.7}} readonly=readonly >
 
-    <label for="TP_DISPO" class="form-label">TIPO DE DISPOSITIVO</label>        
+    <label for="TP_DISPO" class="form-label">TIPO DE DISPOSITIVO</label>
     <input type="TEXT"  class="form-control" name="TP_DISPO" placeholder="TP_DISPO" value ={{shop.8}} readonly=readonly >
 
-    <label for="UBICACION" class="form-label">UBICACION</label>        
+    <label for="UBICACION" class="form-label">UBICACION</label>
     <input type="TEXT"  class="form-control" name="UBICACION" placeholder="UBICACION" value ="{{shop.10}}" readonly=readonly >
 
-    <label for="REGIONAL" class="form-label">REGIONAL</label>        
+    <label for="REGIONAL" class="form-label">REGIONAL</label>
     <input type="TEXT"  class="form-control" name="REGIONAL" placeholder="REGIONAL" value ={{shop.11}} readonly=readonly >
     <BR>
     <label for="NUEVOESTADO" class="form-label">ESTADO NUEVO</label>
     <select name="NUEVOESTADO"class="form-control" >
-        {% for estado in estados %}  
-            <option value="{{estado.0}}"> {{estado.1}}</option>            
-        {% endfor %}
+{% for estado in estados %}  
+    <option value="{{estado.0}}"> {{estado.1}}</option>    
+{% endfor %}
     </select>
 
     <label for="NUEVAUBICACION" class="form-label">NUEVA UBICACION</label>
     <select name="NUEVAUBICACION"class="form-control" >
-        {% for ubicacion in ubicaciones %}  
-            <option value="{{ubicacion.0}}">{{ubicacion.0}} - {{ubicacion.1}}</option>            
+{% for ubicacion in ubicaciones %}  
+    <option value="{{ubicacion.0}}">{{ubicacion.0}} - {{ubicacion.1}}</option>    
     {% endfor %}
     </select>
 <br>

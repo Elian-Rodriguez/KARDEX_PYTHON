@@ -295,7 +295,8 @@ def exportar_inventario_tienda():
     
     
     sh.write_merge(0, 0, 0, 7,'ACTA DE TRASLADO DE ACTIVOS FIJOS ', style)
-    
+#/home/despliegues-bogota/KARDEX/KARDEX/Logo-Koba.png    
+    #Image.open('/home/despliegues-bogota/KARDEX/KARDEX/Logo-Koba.png').convert('RGB').save('Logo-Koba.bmp')
     Image.open('Logo-Koba.png').convert('RGB').save('Logo-Koba.bmp')
     sh.insert_bitmap('Logo-Koba.bmp',2,5)
     sh.write_merge(1, 7, 5, 6,)
