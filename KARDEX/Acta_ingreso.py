@@ -20,7 +20,7 @@ def crear_modelo(modelo,marca,Tipo_disp):
         string = re.sub("\)|\'|\?","",string)
         valor = int(string) +1
         id= str(valor)
-        #INSERT INTO `Kardex_monitor`.`Marca` (`idMarca`, `Nombre_Marca`) VALUES ('2', 'CISCO');
+        #INSERT INTO `Kardex_monitor`.`ACT_Ingreso` (`id_ACt_ingreso`, `fecha_ingreso`, `proveedor`) VALUES ('4', '2021-07-06', 'ncr');
         sentencia = "INSERT INTO `Kardex_monitor`.`Modelo` (`idModelo`, `Nombre_modelo`, `Marca_idMarca`, `Tipo_dispositivo_idTipo_dispositivo`) VALUES  ('"+id+"', '"+modelo+"', '"+marca+"', '"+Tipo_disp+"');"
         curs.execute(sentencia)
         mysql=Conexion.conexionmysql()

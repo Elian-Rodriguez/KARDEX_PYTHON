@@ -1,0 +1,121 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div>
+
+    <DIV class="ROW">
+        <h3>CREACION POR LOTES</h3>
+        <H5><P>PARA EL USO DE LA SIGUIENTE OPCION TENGA EN CUENTA LO SIGUIENTE </P>
+        <OL>
+            <li>LOS SERIALES A CREAR NO TIENEN QUE EXISTIR EN LA BASE DE DATOS</li>
+            <li>NO A DE COLOCAR NINGUN SIMBOLO PAR SEPARAR LOS SERIALES</li>
+            <LI>LOS SERIALES SE SEPARAN SOLO CON EL SALTO DE LINEA</LI>
+            <LI>NO DEJAR SALTOS DE LINEA BASIOS </LI>
+            <li>LOS DISPOSITIVOS A CREAR DEBEN SER DEL MISMO MODELO , A DE PERTENECER A LA MISMA UBICACION ,PERTENECER A LA MISMA ACTA DE INGRESO Y TENER EL MISMO ESTADO </li>
+            <li>LA FORMA DE VALIDACION DE EXITO ES VALIDAR QUE LOS DOS ULTIMOS SERIALES DIGITADOS SE HAYAN CREADO</li>
+        </OL>
+        </H5>
+        <form  action="/create_activo_masivo" method="POST">
+                <label for="ubicacion" class="form-label">Seriales</label>
+                <textarea  type="textarea" class="form-control" name="Serial" placeholder="Serial por Linea, no agregar ; ni , ni ningun simbolo, solo el serial" rows="15" > </textarea>
+                <label for="Marca" class="form-label">Modelo</label>
+                <select name="Modelo"class="form-control" >
+                     {% for modelo in modelos %}  
+                         <option value="{{modelo.0}}">{{modelo.5}} : {{modelo.1}}</option>    
+                    {% endfor %}
+                </select>
+                <label for="estado" class="form-label">Estado</label>
+                <select name="estado"class="form-control" >
+                    {% for estado in estados %}  
+                        <option value="{{estado.0}}"> {{estado.1}}</option>    
+                    {% endfor %}
+                </select>
+                <label for="act_ingreso" class="form-label">Acta de Ingreso</label>
+                <select name="act_ingreso"class="form-control" >
+                    {% for actingreso in actingresos %}  
+                        <option value="{{actingreso.0}}"> {{actingreso.1}}</option>    
+                    {% endfor %}
+                </select>
+                <label for="ubicacion" class="form-label">Ubicacion</label>
+                <select name="ubicacion"class="form-control" >
+                    {% for ubicacion in ubicaciones %}  
+                         <option value="{{ubicacion.0}}">{{ubicacion.2}} - {{ubicacion.1}}</option>    
+                    {% endfor %}
+                </select>
+            
+            <br>
+            
+            <button class="btn btn-primary btn-block"  type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save2-fill" viewBox="0 0 16 16">
+                <path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v6h-2a.5.5 0 0 0-.354.854l2.5 2.5a.5.5 0 0 0 .708 0l2.5-2.5A.5.5 0 0 0 10.5 7.5h-2v-6z"/>
+              </svg> - Guardar</button>
+              <br> <br>
+              
+                </form>
+
+
+
+    </DIV>
+
+    <DIV class="ROW">
+
+
+
+    
+
+
+    <h3>MODIFICACION POR LOTES</h3><br>
+    <H5><P>PARA EL USO DE LA SIGUIENTE OPCION TENGA EN CUENTA LO SIGUIENTE </P><br>
+    <OL>
+        <li>LOS SERIALES A MODIFICAR  TIENEN QUE EXISTIR EN LA BASE DE DATOS</li>
+        <li>NO A DE COLOCAR NINGUN SIMBOLO PAR SEPARAR LOS SERIALES</li>
+        <LI>LOS SERIALES SE SEPARAN SOLO CON EL SALTO DE LINEA</LI>
+        <LI>NO DEJAR SALTOS DE LINEA BASIOS </LI>
+        <li>LOS DISPOSITIVOS A MODIFICAR DEBEN DE PERTENECER A LA MISMA UBICACION Y TENER EL MISMO ESTADO </li>
+        <li>LA FORMA DE VALIDACION DE EXITO ES VALIDAR QUE LOS DOS ULTIMOS SERIALES DIGITADOS SE HAYAN CREADO</li>
+    </OL>
+    </H5>
+
+ 
+        <form action="/update_device_lotes" method="POST">
+            <br>
+            <label for="SERIAL" class="form-label">SERIAL</label>
+            <textarea  type="textarea" class="form-control" name="Seriales" placeholder="Serial por Linea, no agregar ; ni , ni ningun simbolo, solo el serial" rows="15" > </textarea>
+        
+
+            <BR>
+            <label for="NUEVOESTADO" class="form-label">ESTADO NUEVO</label>
+            <select name="NUEVOESTADO"class="form-control" >
+        {% for estado in estados %}  
+            <option value="{{estado.0}}"> {{estado.1}}</option>    
+        {% endfor %}
+            </select>
+        
+            <label for="NUEVAUBICACION" class="form-label">NUEVA UBICACION</label>
+            <select name="NUEVAUBICACION"class="form-control" >
+        {% for ubicacion in ubicaciones %}  
+            <option value="{{ubicacion.0}}">{{ubicacion.0}} - {{ubicacion.1}}</option>    
+            {% endfor %}
+            </select>
+        <br>
+        
+        <div class="btn-group btn-group-lg btn-block" role="group" aria-label="Basic example">
+            <button value="actualizar_estado_ubicacion" name="actualizar_estado_ubicacion" type="submit" class="btn btn-primary" action ="">Actualizar Estado y Ubicacion</button>
+            <button value="actualizar_estado" name="actualizar_estado" type="submit" class="btn btn-success">Actualizar Estado</button>
+            <button value="actualizar_ubicacion" name="actualizar_ubicacion" type="submit" class="btn btn-warning">Actualizar Ubicacion</button>
+          </div>
+        
+        </form>
+        </div>
+        <BR>
+
+
+
+
+
+
+
+
+
+</div>
+
+{% endblock %}

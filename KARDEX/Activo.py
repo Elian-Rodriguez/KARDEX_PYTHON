@@ -28,6 +28,7 @@ def crear_Activo(Serial , Estado_idEstado , ACT_Ingreso_id_ACt_ingreso , Modelo_
         curs.execute(sentencia)
         mysql=Conexion.conexionmysql()
         mysql.commit()
+        
         return "CREACION DE MARCA CON EXITO"
                                                                           
     else :
