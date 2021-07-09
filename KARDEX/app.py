@@ -41,16 +41,26 @@ mail = Mail(app)
 #Definicion de rutas y configuracion
 @app.route('/')
 def index():
-    Asunto = "mensaje de pruba"
-    tienda = "6A060999 PRUEBAS "
-    msg = Message (Asunto , sender ='kardexregbogota@gmail.com',recipients =['elianeduardor451@gmail.com'])
-    msg.body = """BUEN DIA
-    ADJUNTO  LISTADO DE DISPOSITIVOS ASIGNADOS A LA TIENDA  """+tienda+""" DICHO CAMBIO REALIZADO EL DIA """ +str(datetime.today())+"""
     
-    """
-    mail.send(msg)
     return render_template('index.html')
+@app.route('/LISTAR_ENVIAR')
+def LISTAR_ENVIAR() :
+    data=Location.listar_location()
+    return render_template('Listar_Enviar.html',ubicaciones=data)
 
+@app.route('/Envira_acta_entrega', methods=['POST'])
+def Envira_acta_entrega():
+    if request.method == 'POST':
+        correojdz ='elianeduardor451@gmail.com'
+        tienda = "6A060999 PRUEBAS "
+        Asunto = "Acta de Entrega de Equipos de la tienda "+tienda
+        msg = Message (Asunto , sender ='kardexregbogota@gmail.com',recipients =['jose.lara@koba-group.com','freddy.barreto@koba-group.com','jorge.leon@koba-group.com',correojdz])
+        msg.body = """BUEN DIA
+        ADJUNTO  LISTADO DE DISPOSITIVOS ASIGNADOS A LA TIENDA  """+tienda+""" DICHO CAMBIO REALIZADO EL DIA """ +str(datetime.today())+"""
+        
+        """
+        mail.send(msg)
+    return redirect(url_for('LISTAR_ENVIAR'))
 
 @app.route('/Regional')
 def Regional():
