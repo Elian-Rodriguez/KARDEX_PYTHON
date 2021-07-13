@@ -1,6 +1,6 @@
 #INSERT INTO `Kardex_monitor`.`ACT_Ingreso` (`id_ACt_ingreso`, `fecha_ingreso`, `proveedor`, `Observacion`) VALUES ('3', '2021-06-06', 'XOREX', 'ALDD');
 
-import Conexion 
+import Conexion
 import re
 def listar_actas():
     curs =Conexion.cursor()
@@ -13,7 +13,7 @@ def crear_modelo(modelo,marca,Tipo_disp):
         curs.execute("SELECT max(id_ACt_ingreso) FROM Kardex_monitor.ACT_Ingreso;")
         dat = curs.fetchall()
         valor = (dat[0])
-        valor = str(valor) 
+        valor = str(valor)
         string = valor
         string = re.sub("\(|\'|\?","",string)
         string = re.sub("\,|\'|\?","",string)
@@ -26,7 +26,7 @@ def crear_modelo(modelo,marca,Tipo_disp):
         mysql=Conexion.conexionmysql()
         mysql.commit()
         return "CREACION DE MARCA CON EXITO"
-        
+
     else :
         return "FALTAN DATOS PARA LA CREACION DEL MARCA"
 #print( listar_activo())

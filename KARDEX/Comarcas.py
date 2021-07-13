@@ -18,6 +18,6 @@ class Comarca:
         curs.execute(
             'DELETE FROM `Kardex_monitor`.`Regional` WHERE (`Cod_Regional` = {0});'.format(id))
         mysql.commit()
-        
+
 
 

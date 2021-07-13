@@ -41,7 +41,6 @@ mail = Mail(app)
 #Definicion de rutas y configuracion
 @app.route('/')
 def index():
-    
     return render_template('index.html')
 @app.route('/LISTAR_ENVIAR')
 def LISTAR_ENVIAR() :
@@ -57,7 +56,6 @@ def Envira_acta_entrega():
         msg = Message (Asunto , sender ='kardexregbogota@gmail.com',recipients =['jose.lara@koba-group.com','freddy.barreto@koba-group.com','jorge.leon@koba-group.com',correojdz])
         msg.body = """BUEN DIA
         ADJUNTO  LISTADO DE DISPOSITIVOS ASIGNADOS A LA TIENDA  """+tienda+""" DICHO CAMBIO REALIZADO EL DIA """ +str(datetime.today())+"""
-        
         """
         mail.send(msg)
     return redirect(url_for('LISTAR_ENVIAR'))
@@ -102,13 +100,12 @@ def create_ubicacion():
         ABIERT = request.form['ABIERTA']
         ESTAD = request.form['ESTADO']
         IdRegional=request.form['Regional']
-   
+
         cur.execute("""INSERT INTO `Kardex_monitor`.`Tiendas` (`Cod_Ncr`, `Nombre_Tienda`, `Codigo_sap`, `Ip_Server`, `Ip_Pc`, `Ip_Camaras`, `Abierta`, `Estado`, `Regional_Cod_Regional`) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s); """,
                         (CODNCR, Nombreubicacion, CODIGOSAP,IPSERVER,IPPC,CAMARA,ABIERT,ESTAD,IdRegional))
         mysql.connection.commit()
         flash('COMARCA INGRESADA CORRECTAMENTE')
     return redirect(url_for('Ubicacion'))
-   
 
 
 
@@ -118,7 +115,7 @@ def Marca():
     data2=Generalidad.listar_Estado()
     data3=Generalidad.listar_Tipo_dispositivo()
     return render_template('Marca.html',Marcas=data,ESTADOS=data2,TP_DISPOSITIVOS=data3)
-    
+
 @app.route('/create_marca', methods=['POST'])
 def create_marca():
     if request.method == 'POST':
@@ -163,7 +160,7 @@ def create_modelo():
         modelos = request.form['Nombre_Modelo']
         Modelos.crear_modelo(modelos,ID_marca,ID_tp_dispo)
     return redirect(url_for('Modelo'))
-        
+
 @app.route("/crear_dispositivo")
 def crear_dispositivo():
     data = Activo.listar_activo()
@@ -171,8 +168,7 @@ def crear_dispositivo():
     data3 = Generalidad.listar_Estado()
     data4 = Location.listar_location()
     data5 = Acta_ingreso.listar_actas()
-    return render_template('Crear_dispositivo.html', dispositivos = data,
-                           modelos = data2, estados = data3,ubicaciones= data4, actingresos = data5)
+    return render_template('Crear_dispositivo.html', dispositivos = data,modelos = data2, estados = data3,ubicaciones= data4, actingresos = data5)
 
 
 @app.route("/acta_ingreso")
@@ -227,9 +223,7 @@ def edit_device(Serial):
     data4 = Location.listar_location()
     return render_template('Activo_editar.html', shop=data[0], estados = data3,ubicaciones= data4)
 
-    
-    
-    
+
 @app.route('/update_device/<string:Serial>', methods=['POST'])
 def update_device(Serial):
     if request.method == 'POST':
@@ -237,14 +231,12 @@ def update_device(Serial):
         id_estadonuevo= request.form['NUEVOESTADO']
         id_ubicacionnueva= request.form['NUEVAUBICACION']
         if request.form.get('actualizar_estado_ubicacion') == 'actualizar_estado_ubicacion':
-           Activo.acutalizar_estado_activo(serialact,id_estadonuevo)
-           Activo.acutalizar_ubicacion_activo(serialact,id_ubicacionnueva)
-           
+            Activo.acutalizar_estado_activo(serialact,id_estadonuevo)
+            Activo.acutalizar_ubicacion_activo(serialact,id_ubicacionnueva)
         elif  request.form.get('actualizar_estado') == 'actualizar_estado':
-           Activo.acutalizar_estado_activo(serialact,id_estadonuevo)
-           
+            Activo.acutalizar_estado_activo(serialact,id_estadonuevo)
         elif request.form.get('actualizar_ubicacion') == 'actualizar_ubicacion':
-           Activo.acutalizar_ubicacion_activo(serialact,id_ubicacionnueva)
+            Activo.acutalizar_ubicacion_activo(serialact,id_ubicacionnueva)
     return redirect(url_for('crear_dispositivo'))
 
 @app.route("/PROCESAMIENTO_LOTES")
@@ -253,9 +245,7 @@ def PROCESAMIENTO_LOTES():
     data3 = Generalidad.listar_Estado()
     data4 = Location.listar_location()
     data5 = Acta_ingreso.listar_actas()
-    return render_template('PROCESAMIENTO_LOTES.html', 
-                           modelos = data2, estados = data3,ubicaciones= data4, actingresos = data5)
-   
+    return render_template('PROCESAMIENTO_LOTES.html', modelos = data2, estados = data3,ubicaciones= data4, actingresos = data5)
 @app.route("/create_activo_masivo", methods=['POST'])
 def create_activo_masivo():
     if request.method == 'POST':
@@ -272,20 +262,18 @@ def create_activo_masivo():
             ser=ser.strip()
             ser=re.sub(r"\s+$", "", ser)
             ser= re.sub(r"\r+", "", ser)
-            
             Activo.crear_Activo(ser,estado,act_ingreso,Modelo,ubicacion)
         return redirect(url_for('PROCESAMIENTO_LOTES'))
 
 
 @app.route("/update_device_lotes", methods=['POST'])
 def update_device_lotes():
-    
     if request.method == 'POST':
         serialact = request.form['Seriales']
         id_estadonuevo= request.form['NUEVOESTADO']
         id_ubicacionnueva= request.form['NUEVAUBICACION']
         serial = serialact.split("\n")
-        
+
         if request.form.get('actualizar_estado_ubicacion') == 'actualizar_estado_ubicacion':
             for ser in serial:
                 ser=ser.strip()
@@ -293,16 +281,15 @@ def update_device_lotes():
                 ser= re.sub(r"\r+", "", ser)
                 Activo.acutalizar_estado_activo(ser,id_estadonuevo)
                 Activo.acutalizar_ubicacion_activo(ser,id_ubicacionnueva)
-           
         elif  request.form.get('actualizar_estado') == 'actualizar_estado':
                 for ser in serial:
                     ser=ser.strip()
                     ser=re.sub(r"\s+$", "", ser)
                     ser= re.sub(r"\r+", "", ser)
                     Activo.acutalizar_estado_activo(ser,id_estadonuevo)
-           
+
         elif request.form.get('actualizar_ubicacion') == 'actualizar_ubicacion':
-           for ser in serial:
+            for ser in serial:
                 ser=ser.strip()
                 ser=re.sub(r"\s+$", "", ser)
                 ser= re.sub(r"\r+", "", ser)
@@ -311,12 +298,12 @@ def update_device_lotes():
 
 
 
-@app.route("/Exportar_inventario_tienda" , methods=['POST'])    
+@app.route("/Exportar_inventario_tienda" , methods=['POST'])
 def exportar_inventario_tienda():
     sap_buscar="6030"
     if request.method == 'POST':
         sap_buscar = request.form['ubicacion_excel']
-   
+
     result = Activo.filtrar_tienda(sap_buscar)
     #output in byte
     output = io.BytesIO()
@@ -336,11 +323,11 @@ def exportar_inventario_tienda():
     borders = xlwt.Borders()
     #DEFINIR TIPOGRAFIA Y TAMANO DE LA MISMA
     font.name = u'Arial'
-    font.height = 11*20 
+    font.height = 11*20
     font.bold = True
-    
+
     font2.name = u'Arial'
-    font2.height = 11*20 
+    font2.height = 11*20
     font2.bold = False
     borders = xlwt.Borders()
     k=1
@@ -348,7 +335,7 @@ def exportar_inventario_tienda():
     borders.right = k
     borders.top = k
     borders.bottom = k
-    
+
     # Establecer alineación de celda
     alignment = xlwt.Alignment()
     # 0x01 (alineado en el extremo izquierdo), 0x02 (alineado en el centro en la dirección horizontal), 0x03 (alineado en el extremo derecho)
@@ -358,9 +345,7 @@ def exportar_inventario_tienda():
 
     #Puede configurar el ajuste automático de la línea
     #alignment.wrap = 1
-        
-    
-    
+
     style.font = font
     style.pattern = pattern
     style.alignment = alignment
@@ -369,8 +354,8 @@ def exportar_inventario_tienda():
     style2.pattern = pattern
     style2.alignment = alignment
     style2.borders = borders
-    
-    
+
+
     sh = workbook.add_sheet(sap_buscar)
 
     ancho =35
@@ -383,23 +368,18 @@ def exportar_inventario_tienda():
     sh.col(5).width = ancho * 105
     sh.col(6).width = ancho * 115
     sh.col(7).width = ancho * 26
-    
-    
-    
+
+
+
     sh.write_merge(0, 0, 0, 7,'ACTA DE TRASLADO DE ACTIVOS FIJOS ', style)
-#/home/despliegues-bogota/KARDEX/KARDEX/Logo-Koba.png 
-    Image.open('Logo-Koba.png').convert('RGB').save('Logo-Koba.bmp')  
+#/home/despliegues-bogota/KARDEX/KARDEX/Logo-Koba.png
+    Image.open('Logo-Koba.png').convert('RGB').save('Logo-Koba.bmp')
     #Image.open('/home/despliegues-bogota/KARDEX/KARDEX/Logo-Koba.png').convert('RGB').save('Logo-Koba.bmp')
     sh.insert_bitmap('Logo-Koba.bmp',2,5)
     sh.write_merge(1, 7, 5, 6,)
-    
-    
-    
-    
-    
-    
+
     fecha = date.today()
-    fecha= str(fecha)  
+    fecha= str(fecha)
     sh.write(1,1, 'Fecha :',style)
     sh.write(1,2, fecha,style2)
     sh.write(2,1, 'Origen :',style)
@@ -416,45 +396,39 @@ def exportar_inventario_tienda():
     sh.write(6,2, 'APERTURA',style2 )
     sh.write(7,1, 'DIRECCION :',style)
     sh.write(7,2, '__' ,style2)
-    
+
     sh.write(9,1,'TIPO DEL ACTIVO',style)
     sh.write(9,2,'MARCA',style)
     sh.write(9,3,'MODELO',style)
     sh.write(9,4,'SERIAL',style)
     sh.write(9,5,'ESTADO',style)
     sh.write(9,6,'COMENTARIO',style)
-   
-    
-    
     idx = 9
-    
+
     for row in result:
-        
         sh.write(idx+1, 1, (row[8]),style2)
         sh.write(idx+1, 2, (row[7]),style2)
         sh.write(idx+1, 3, (row[6]),style2)
         sh.write(idx+1, 4, (row[0]),style2)
         sh.write(idx+1, 5, (row[4]),style2)
         sh.write(idx+1, 6, (row[2]),style2)
-        
-        
         idx += 1
     idx +=3
     sh.write_merge(idx, idx, 1, 3,'ENTREGA', style)
     sh.write_merge(idx, idx, 4, 6,'RECIBE', style)
-    
+
     idx +=1
     sh.write_merge(idx, idx, 1, 3,'FECHA : ___ /___ / ______ ', style2)
     sh.write_merge(idx, idx, 4, 6,'FECHA : ___ /___ / ______ ', style2)
-    
+
     idx +=1
     sh.write_merge(idx, idx, 1, 3,'NOMBRE : _____________________', style2)
     sh.write_merge(idx, idx, 4, 6,'NOMBRE : _____________________', style2)
-    
+
     idx +=1
     sh.write_merge(idx, idx, 1, 3,'CARGO : ASISTENTE DE TECNOLOGIA', style2)
     sh.write_merge(idx, idx, 4, 6,'CARGO : JEFE DE ZONA', style2)
-    
+
     idx +=1
     idxm= idx+3
     sh.write_merge(idx, idxm, 1, 3,'', style2)
@@ -462,14 +436,13 @@ def exportar_inventario_tienda():
     idx=idxm+1
     sh.write_merge(idx, idx, 1, 3,'FIRMA', style)
     sh.write_merge(idx, idx, 4, 6,'FIRMA', style)
-    
-    
+
     desti=result[0]
     desti = desti[9]
     etiquetas="LABEL-"+str(desti)
-    #\n    
-    sh2 = workbook.add_sheet(etiquetas)    
-    
+    #\n
+    sh2 = workbook.add_sheet(etiquetas)
+
     x=int(0)
     y=int(0)
     for row in result:
@@ -483,17 +456,11 @@ def exportar_inventario_tienda():
         if y == 10:
             x = x+1
             y = int(0)
-            
-        
-    
-    
-    
 
     workbook.save(output)
     output.seek(0)
     return Response(output, mimetype="application/ms-excel", headers={"Content-Disposition":"attachment;filename=Inventario_"+sap_buscar+".xls"})
 
-    
 @app.route("/Export_inventario")
 def Export_inventario():
     result = Activo.listar_activo()
@@ -517,11 +484,11 @@ def Export_inventario():
     borders = xlwt.Borders()
     #DEFINIR TIPOGRAFIA Y TAMANO DE LA MISMA
     font.name = u'Arial'
-    font.height = 11*20 
+    font.height = 11*20
     font.bold = True
-    
+
     font2.name = u'Arial'
-    font2.height = 11*20 
+    font2.height = 11*20
     font2.bold = False
     borders = xlwt.Borders()
     k=1
@@ -529,7 +496,7 @@ def Export_inventario():
     borders.right = k
     borders.top = k
     borders.bottom = k
-    
+
     # Establecer alineación de celda
     alignment = xlwt.Alignment()
     # 0x01 (alineado en el extremo izquierdo), 0x02 (alineado en el centro en la dirección horizontal), 0x03 (alineado en el extremo derecho)
@@ -539,9 +506,7 @@ def Export_inventario():
 
     #Puede configurar el ajuste automático de la línea
     #alignment.wrap = 1
-        
-    
-    
+
     style.font = font
     style.pattern = pattern
     style.alignment = alignment
@@ -550,9 +515,7 @@ def Export_inventario():
     style2.pattern = pattern
     style2.alignment = alignment
     style2.borders = borders
-    
-    
-    
+
     #negrita = sh.add_format({'bold': True})
     #add headers
     sh.write(0, 0, 'SERIAL',style)
@@ -567,17 +530,7 @@ def Export_inventario():
     sh.write(0, 9, 'COD REGIONAL',style)
 
     borders = xlwt.Borders()
-    
-    
-    
-    
-    
-    
-    
-    
-    
     idx = 0
-    
     for row in result:
         sh.write(idx+1, 0, (row[0]),style2)
         sh.write(idx+1, 1, (row[1]),style2)
@@ -589,13 +542,11 @@ def Export_inventario():
         sh.write(idx+1, 7, (row[8]),style2)
         sh.write(idx+1, 8, (row[10]),style2)
         sh.write(idx+1, 9, (row[11]),style2)
-       
-        
         idx += 1
     workbook.save(output)
     output.seek(0)
     return Response(output, mimetype="application/ms-excel", headers={"Content-Disposition":"attachment;filename=Reporte_inventario.xls"})
-    
+
 @app.route("/Export_pos_vs_tiendas")
 def Export_pos_vs_tiendas():
     result = Conf_pos.listar_pos()

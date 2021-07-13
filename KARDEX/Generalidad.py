@@ -26,7 +26,7 @@ def create_marca(nommarca):
         curs.execute("SELECT max(idMarca) FROM Kardex_monitor.Marca;")
         dat = curs.fetchall()
         valor = (dat[0])
-        valor = str(valor) 
+        valor = str(valor)
         string = valor
         string = re.sub("\(|\'|\?","",string)
         string = re.sub("\,|\'|\?","",string)
@@ -39,19 +39,17 @@ def create_marca(nommarca):
         mysql=Conexion.conexionmysql()
         mysql.commit()
         return "CREACION DE MARCA CON EXITO"
-        
     else :
         return "FALTAN DATOS PARA LA CREACION DEL MARCA"
 
 
-    
 def create_Estado(nombre_estado):
     if nombre_estado and nombre_estado.strip():
         curs =Conexion.cursor()
         curs.execute("SELECT max(idEstado) FROM Kardex_monitor.Estado;")
         dat = curs.fetchall()
         valor = (dat[0])
-        valor = str(valor) 
+        valor = str(valor)
         string = valor
         string = re.sub("\(|\'|\?","",string)
         string = re.sub("\,|\'|\?","",string)
@@ -63,7 +61,6 @@ def create_Estado(nombre_estado):
         mysql=Conexion.conexionmysql()
         mysql.commit()
         return "CREACION DE ESTADO CON EXITO"
-        
     else :
         return "FALTAN DATOS PARA LA CREACION DEL ESTADO"
 
@@ -74,7 +71,7 @@ def create_Tp_dispositivo(Tp_dispositivo):
         curs.execute("SELECT max(idTipo_dispositivo) FROM Kardex_monitor.Tipo_dispositivo;")
         dat = curs.fetchall()
         valor = (dat[0])
-        valor = str(valor) 
+        valor = str(valor)
         string = valor
         string = re.sub("\(|\'|\?","",string)
         string = re.sub("\,|\'|\?","",string)
@@ -86,18 +83,13 @@ def create_Tp_dispositivo(Tp_dispositivo):
         mysql=Conexion.conexionmysql()
         mysql.commit()
         return "CREACION DE TIPO DE DISPOSITIVO CON EXITO"
-        
+
     else :
         return "FALTAN DATOS PARA LA CREACION DEL TIPO DE DISPOSITIVO"
 
 
-  
-    
-    
 
 
 #print (create_Tp_dispositivo("IMPRESORA"))
 
 
-
-    

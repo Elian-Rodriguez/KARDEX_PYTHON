@@ -12,12 +12,10 @@ def conexionmysql():
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:
         Error = "Ocurrió un error al conectar: " + e
         return Error
-    
+
 def filalizarconexionmysql(myconexion):
     myconexion.close()
-    
-    
+
 def cursor():
-    
     cur = miConexion.cursor()
     return cur
