@@ -5,41 +5,14 @@ from flask import Flask, render_template, request, redirect, url_for, flash,Resp
 from flask_mysqldb import MySQL
 import io
 import xlwt
+import Location ,Conf_pos,Generalidad,Modelos,Activo,Acta_ingreso,Comarcas
 from datetime import date
 from datetime import datetime
 from PIL import Image
 #librerias nuevas
 from  flask_mail import Mail,Message
-#import Route
-from flask import Flask
+from app import app,mail,mysql
 
-from flask import Blueprint
-
-import Location ,Conf_pos,Generalidad,Modelos,Activo,Acta_ingreso,Comarcas
-
-app = Flask(__name__)
-
-app.config['MYSQL_HOST'] = '10.26.1.161'
-app.config['MYSQL_USER'] = 'kardex'
-app.config['MYSQL_PASSWORD'] = 'Linux-1234'
-app.config['MYSQL_DB'] = 'Kardex_monitor'
-mysql = MySQL(app)
-
-#Configurar sesion
-app.secret_key = "mysecretkey"
-
-
-#Configuracion de servidor de correo 900276962KOBA 900276962KOBA
-app.config['MAIL_SERVER']= 'smtp.gmail.com'
-app.config['MAIL_PORT']= 465
-app.config['MAIL_USERNAME'] = 'kardexregbogota@gmail.com'
-app.config['MAIL_PASSWORD'] ='900276962KOBA'
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-#creacion de objeto mail server
-mail = Mail(app)
-
-#Definicion de rutas y configuracion
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -581,15 +554,9 @@ def Export_pos_vs_tiendas():
         sh.write(idx+1, 5, (row[5]))
         sh.write(idx+1, 6, (row[6]))
         sh.write(idx+1, 7, (row[7]))
-
+        
         idx += 1
     workbook.save(output)
     output.seek(0)
     return Response(output, mimetype="application/ms-excel", headers={"Content-Disposition":"attachment;filename=Reporte_parametrizacion_de_hardware_pos.xls"})
-
-
-
-if __name__ == '__main__':
-    app.run(port=3200, host="0.0.0.0", debug=True)
-    #app.run(port=3030, host="0.0.0.0", debug=True)
 

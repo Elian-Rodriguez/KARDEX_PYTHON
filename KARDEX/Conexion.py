@@ -6,7 +6,7 @@ miConexion = pymysql.connect( host='10.26.1.161', user= 'kardex',port=3306, pass
 
 
 
-def conexionmysql():
+def cmysql():
     try:
         return miConexion
     except (pymysql.err.OperationalError, pymysql.err.InternalError) as e:

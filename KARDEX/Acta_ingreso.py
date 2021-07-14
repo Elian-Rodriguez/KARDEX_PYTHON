@@ -2,14 +2,16 @@
 
 import Conexion
 import re
+mysql =Conexion.cmysql()
+
 def listar_actas():
-    curs =Conexion.cursor()
+    curs =Conexion.cmysql().cursor()
     curs.execute("SELECT id_ACt_ingreso,fecha_ingreso,proveedor,Observacion FROM Kardex_monitor.ACT_Ingreso;")
     dat = curs.fetchall()
     return dat
 def crear_modelo(modelo,marca,Tipo_disp):
     if modelo and modelo.strip() or marca.strip() or Tipo_disp.strip():
-        curs =Conexion.cursor()
+        curs =Conexion.cmysql().cursor()
         curs.execute("SELECT max(id_ACt_ingreso) FROM Kardex_monitor.ACT_Ingreso;")
         dat = curs.fetchall()
         valor = (dat[0])
@@ -23,7 +25,6 @@ def crear_modelo(modelo,marca,Tipo_disp):
         #INSERT INTO `Kardex_monitor`.`ACT_Ingreso` (`id_ACt_ingreso`, `fecha_ingreso`, `proveedor`) VALUES ('4', '2021-07-06', 'ncr');
         sentencia = "INSERT INTO `Kardex_monitor`.`Modelo` (`idModelo`, `Nombre_modelo`, `Marca_idMarca`, `Tipo_dispositivo_idTipo_dispositivo`) VALUES  ('"+id+"', '"+modelo+"', '"+marca+"', '"+Tipo_disp+"');"
         curs.execute(sentencia)
-        mysql=Conexion.conexionmysql()
         mysql.commit()
         return "CREACION DE MARCA CON EXITO"
 
