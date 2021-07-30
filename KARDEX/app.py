@@ -29,7 +29,7 @@ mysql = MySQL(app)
 app.secret_key = "mysecretkey"
 
 
-#Configuracion de servidor de correo 900276962KOBA 900276962KOBA
+#Configuracion de servidor de correo 900276962KOBA 900276962KOBA HEROKU = 900276962KOBA.
 app.config['MAIL_SERVER']= 'smtp.gmail.com'
 app.config['MAIL_PORT']= 465
 app.config['MAIL_USERNAME'] = 'kardexregbogota@gmail.com'
@@ -374,7 +374,8 @@ def exportar_inventario_tienda():
 
     sh.write_merge(0, 0, 0, 7,'ACTA DE TRASLADO DE ACTIVOS FIJOS ', style)
 #/home/despliegues-bogota/KARDEX/KARDEX/Logo-Koba.png
-    Image.open('Logo-Koba.png').convert('RGB').save('Logo-Koba.bmp')
+    #Image.open('Logo-Koba.png').convert('RGB').save('Logo-Koba.bmp')
+    Image.open('/home/despliegues-bogota/LABORATORIOS/Logo-Koba.png').convert('RGB').save('Logo-Koba.bmp')
     #Image.open('/home/despliegues-bogota/KARDEX/KARDEX/Logo-Koba.png').convert('RGB').save('Logo-Koba.bmp')
     sh.insert_bitmap('Logo-Koba.bmp',2,5)
     sh.write_merge(1, 7, 5, 6,)
@@ -388,6 +389,7 @@ def exportar_inventario_tienda():
     sh.write(3,1, 'COD ORIGEN :',style)
     sh.write(3,2, '6030',style2 )
     sh.write(4,1, 'DESTINO',style)
+
     destino=result[0]
     destino=destino[10]
     sh.write(4,2,destino ,style2)
@@ -569,9 +571,9 @@ def Export_pos_vs_tiendas():
     sh.write(0, 6, 'Impresora')
     sh.write(0, 7, 'Tiendas_Cod_Ncr')
     borders = xlwt.Borders()
-    
+
     idx = 0
-    
+
     for row in result:
         sh.write(idx+1, 0, (row[0]))
         sh.write(idx+1, 1, (row[1]))
