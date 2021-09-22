@@ -97,7 +97,7 @@ def filtrar_tienda(sap):
         curs =Conexion.cmysql().cursor()
         curs.execute(sentencia)
         dat = curs.fetchall()
-       
+
         return dat
     else:
         dat ="NO HAY DATA"
