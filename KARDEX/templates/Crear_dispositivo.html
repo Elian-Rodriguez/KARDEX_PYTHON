@@ -104,10 +104,11 @@
 </div>
 
 <br> <br>
+</div>
   <div class="row">
   <div class="col-12">
     <h4 class= " font-weight-bold  text-center ">LISTADO DISPOSITIVOS CREADOS</h4>
-    <table class ="table table-sm table-striped  ">
+    <table class ="table  table-striped  ">
       <thead class ="thead-dark">
 
 <tr class="font-weight-bold text-center ">
@@ -126,8 +127,11 @@
   </tr>
       </thead>
       <tbody>
+     
 {% for dispositivo in dispositivos %}
+
       <tr class="text-center">
+
 <td>{{dispositivo.0}}</td>
 <td>{{dispositivo.1}}</td>
 <td>{{dispositivo.2}}</td>
@@ -137,6 +141,7 @@
 <td>{{dispositivo.8}}</td>
 <td>{{dispositivo.10}}</td>
 <td>{{dispositivo.11}}</td>
+
 
 
        </tr>

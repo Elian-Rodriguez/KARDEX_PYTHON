@@ -17,6 +17,13 @@ from flask import Blueprint
 
 import Location ,Conf_pos,Generalidad,Modelos,Activo,Acta_ingreso,Comarcas
 
+import openpyxl 
+
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
+
 app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = '10.26.1.161'
@@ -258,7 +265,7 @@ def create_activo_masivo():
         print ( Serial)
         contador = 0
         serial = Serial.split("\n")
-        print ("EL SERIAL 4 ES "+str(serial[3]))
+        
         for ser in serial:
             ser=ser.strip()
             ser=re.sub(r"\s+$", "", ser)
@@ -298,14 +305,32 @@ def update_device_lotes():
         return redirect(url_for('PROCESAMIENTO_LOTES'))
 
 
+@app.route("/JUEGO_POS" )
+def JUEGO_POS():
+    data = Activo.listar_ubucacion_local()
+    return render_template('Juego_pos.html',UBI_LOCAL=  data)
+@app.route('/UPDATE_NO_POS' , methods=['POST'])
+def UPDATE_NO_POS():
+    if request.method == 'POST':
+        serialact = request.form['Seriales']
+        UBICACION = request.form['UBICACION_TIENDA']
+        serial = serialact.split("\n")
+        for ser in serial:
+            ser=ser.strip()
+            ser=re.sub(r"\s+$", "", ser)
+            ser= re.sub(r"\r+", "", ser)
+            Activo.actualizar_ubicacion_tienda(ser,UBICACION)
+        return redirect(url_for('JUEGO_POS'))
 
 @app.route("/Exportar_inventario_tienda" , methods=['POST'])
 def exportar_inventario_tienda():
     sap_buscar="6030"
     if request.method == 'POST':
         sap_buscar = request.form['ubicacion_excel']
-
+    
     result = Activo.filtrar_tienda(sap_buscar)
+    print (str(sap_buscar))
+    #result = Activo.filtrar_tienda_exacto(str(sap_buscar))
     #output in byte
     output = io.BytesIO()
     #create WorkBook object
@@ -339,6 +364,8 @@ def exportar_inventario_tienda():
 
     # Establecer alineación de celda
     alignment = xlwt.Alignment()
+    
+    alignment.wrap = 1
     # 0x01 (alineado en el extremo izquierdo), 0x02 (alineado en el centro en la dirección horizontal), 0x03 (alineado en el extremo derecho)
     alignment.horz = 0x02
     # 0x00 (alineado en la parte superior), 0x01 (alineado en el centro en la dirección vertical), 0x02 (alineado en la parte inferior)
@@ -368,16 +395,17 @@ def exportar_inventario_tienda():
     sh.col(4).width = ancho * 145
     sh.col(5).width = ancho * 105
     sh.col(6).width = ancho * 115
-    sh.col(7).width = ancho * 26
+    sh.col(7).width = ancho * 115
+    sh.col(8).width = ancho * 26
 
 
 
     sh.write_merge(0, 0, 0, 7,'ACTA DE TRASLADO DE ACTIVOS FIJOS ', style)
 #/home/despliegues-bogota/KARDEX/KARDEX/Logo-Koba.png
     #Image.open('Logo-Koba.png').convert('RGB').save('Logo-Koba.bmp')
-    Image.open('/home/despliegues-bogota/LABORATORIOS/Logo-Koba.png').convert('RGB').save('Logo-Koba.bmp')
+    #Image.open('C:\Users\jose.lara\Documents\GitHub\KARDEX_PYTHON\KARDEX\Logo-Koba.png').convert('RGB').save('Logo-Koba.bmp')
     #Image.open('/home/despliegues-bogota/KARDEX/KARDEX/Logo-Koba.png').convert('RGB').save('Logo-Koba.bmp')
-    sh.insert_bitmap('Logo-Koba.bmp',2,5)
+    sh.insert_bitmap(r'C:\Users\jose.lara\Documents\GitHub\KARDEX_PYTHON\KARDEX\Logo-Koba.bmp',2,5)
     sh.write_merge(1, 7, 5, 6,)
 
     fecha = date.today()
@@ -405,7 +433,8 @@ def exportar_inventario_tienda():
     sh.write(9,3,'MODELO',style)
     sh.write(9,4,'SERIAL',style)
     sh.write(9,5,'ESTADO',style)
-    sh.write(9,6,'COMENTARIO',style)
+    sh.write(9,6,'# DE POS',style)
+    sh.write(9,7,'COMENTARIO',style)
     idx = 9
 
     for row in result:
@@ -414,7 +443,15 @@ def exportar_inventario_tienda():
         sh.write(idx+1, 3, (row[6]),style2)
         sh.write(idx+1, 4, (row[0]),style2)
         sh.write(idx+1, 5, (row[4]),style2)
-        sh.write(idx+1, 6, (row[2]),style2)
+        
+        if (row[13]) is  not None:
+            sh.write(idx+1, 6, (str(row[13])),style2)
+        else:
+            sh.write(idx+1, 6, (""),style2)
+        if (row[2]) is not None:
+            sh.write(idx+1, 7, (str(row[2])),style2)
+        else:
+            sh.write(idx+1, 7, (""),style2)
         idx += 1
     idx +=3
     sh.write_merge(idx, idx, 1, 3,'ENTREGA', style)
@@ -449,13 +486,13 @@ def exportar_inventario_tienda():
     x=int(0)
     y=int(0)
     for row in result:
-        #VISOR DE PESO
-        #SERIAL: 271481
-        # MARCA: ZEBRA
-        # MODELO: MX201
-        escribir = str(row[8])+"\nSERIAL: "+str(row[0])+"\nMARCA: "+str(row[7])+"\nMODELO: "+str(row[6])+"\n"+str(row[12])
+        sh2.col(x).width = ancho * 420
+        var = ""
+        if (row[13]) is  not None:
+           var=(str(row[13]))
+        escribir = str(row[8])+"\nSERIAL: "+str(row[0])+"\nMARCA: "+str(row[7])+"\nMODELO: "+str(row[6])+"\n"+str(row[12])+"\n"+str(var)
         sh2.write(y,x, str(escribir),style2)
-        y=y+1
+        y=y+1        
         if y == 10:
             x = x+1
             y = int(0)

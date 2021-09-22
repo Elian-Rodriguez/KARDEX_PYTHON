@@ -97,7 +97,25 @@ def filtrar_tienda(sap):
         curs =Conexion.cmysql().cursor()
         curs.execute(sentencia)
         dat = curs.fetchall()
+       
         return dat
     else:
-        dat =""
+        dat ="NO HAY DATA"
         return dat
+    
+def listar_ubucacion_local():
+    sentencia = """SELECT * FROM Kardex_monitor.ubicacion_local;"""
+    curs =Conexion.cmysql().cursor()
+    curs.execute(sentencia)
+    dat = curs.fetchall()
+    return dat
+
+def actualizar_ubicacion_tienda(serial,ubicacion_tienda):
+    Serial=str(serial)
+    localizacion=str(ubicacion_tienda)
+    sentencia="""UPDATE `Kardex_monitor`.`Activo` SET `local_ubicacion` = '"""+str(localizacion)+"""' WHERE (`Serial` = '"""+str(Serial)+"""');"""
+    
+    curs =Conexion.cmysql().cursor()
+    curs.execute(sentencia)
+    mysql.commit()
+
