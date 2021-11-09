@@ -1,5 +1,6 @@
 
 from re import A
+import webbrowser as web
 import re
 from flask import Flask, render_template, request, redirect, url_for, flash,Response
 from flask_mysqldb import MySQL
@@ -629,6 +630,5 @@ def Export_pos_vs_tiendas():
 
 
 if __name__ == '__main__':
+    web.open('http://127.0.0.1:3200/')
     app.run(port=3200, host="0.0.0.0", debug=True)
-    #app.run(port=3030, host="0.0.0.0", debug=True)
-
